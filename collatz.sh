@@ -17,14 +17,19 @@ for (( num=start_num; num<=end_num; num++ )); do
     current_num=$num
     steps=0
 
+    echo "Running Collatz sequence for number: $current_num"
+    echo "Number of steps: $steps"
+
     while (( current_num != 1 )); do
         current_num=$(collatz $current_num)
         steps=$(( steps + 1 ))
+        echo "Running Collatz sequence for number: $current_num"
+        echo "Number of steps: $steps"
     done
 
-    steps=$(( steps + 1 ))
-
     steps_map[$num]=$steps
+    echo "Running Collatz sequence for number: 1"
+    echo "Number of steps: $((steps + 1))"
 done
 
 sorted_steps_map=$(for key in "${!steps_map[@]}"; do echo "$key ${steps_map[$key]}"; done | sort -k2 -rn)
@@ -40,4 +45,3 @@ while IFS= read -r line; do
         break
     fi
 done <<< "$sorted_steps_map"
-
